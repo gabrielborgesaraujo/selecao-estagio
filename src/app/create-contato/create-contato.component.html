@@ -1,0 +1,62 @@
+<div class="row d-flex justify-content-end m-auto">
+    <div class="card cold-md-6 offset-md-3 offset-md-3">
+        <div class="row">
+            <h3 class="text-start m-auto">Novo Contato</h3>
+            <div class="card-body">
+                <form (ngSubmit)="onSubmit()" [formGroup]="myForm">
+                    <div class="form-group d-flex flex-row m-2 align-items-center">
+                        <label>Nome:</label>
+                        <input type="text" class="form-control m-2" id="nome" [(ngModel)]="contato.nome"
+                            formControlName="nome" name="nome">
+                        <ng-container *ngIf="myForm.controls.nome.touched">
+                            <span *ngIf="myForm.controls.nome.errors" style="color: red;">
+                                Campo obrigatório
+                            </span>
+                        </ng-container>
+                    </div>
+                    <div class="form-group d-flex flex-row m-2 align-items-center">
+                        <label>Email:</label>
+                        <input type="email" class="form-control m-2" id="email" [(ngModel)]="contato.email"
+                            formControlName="email" name="email">
+                        <ng-container *ngIf="myForm.controls.email.touched">
+                            <span *ngIf="myForm.controls.email.errors?.required" style="color: red;">
+                                Campo obrigatório
+                            </span>
+                            <span *ngIf="myForm.controls.email.errors?.email" style="color: red;">
+                                E-mail inválido
+                            </span>
+                        </ng-container>
+                    </div>
+                    <div class="form-group d-flex flex-row m-2 align-items-center">
+                        <label>Telefone:</label>
+                        <input type="text" class="form-control m-2" id="telefone" value="{{contato.telefone | phone}}"
+                            (ngModelChange)="contato.telefone = $event" formControlName="telefone" name="telefone">
+                        <ng-container *ngIf="myForm.controls.telefone.touched">
+                            <span *ngIf="myForm.controls.telefone.errors?.required" style="color: red;">
+                                Campo obrigatório
+                            </span>
+                        </ng-container>
+                    </div>
+                    <div class="form-group d-flex flex-row m-2 align-items-center">
+                        <label>Data de Nascimento:</label>
+                        <input type="date" class="form-control m-2" id="dataNascimento"
+                            [(ngModel)]="contato.dataNascimento" formControlName="dataNascimento" name="dataNascimento">
+                        <ng-container *ngIf="myForm.controls.dataNascimento.touched">
+                            <span *ngIf="myForm.controls.dataNascimento.errors?.required" style="color: red;">
+                                Campo obrigatório
+                            </span>
+                        </ng-container>
+                    </div>
+                    <div class="form-group d-flex flex-row m-2 align-items-center">
+                        <label>Imagem:</label>
+                        <input type="file" class="form-control m-2" id="imgPath" (change)="onFileChange($event)" [(ngModel)]="contato.imgPath"
+                            formControlName="imgPath" name="imagem">
+                    </div>
+                    <br />
+                    <button class="btn btn-success m-2" type="submit" [disabled]="!myForm.valid">Salvar</button>
+                    <button class="btn btn-danger m-2" type="button" (click)="goToContatoList()">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
